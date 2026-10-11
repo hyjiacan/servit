@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Servit 已启动</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>🪨 Servit 已启动</h1>
+    <p>你的本地静态服务器已经跑起来了。现在页面走的是 <code>http://</code> 协议，Ajax 请求不会再被浏览器拦截。</p>
+
+    <div class="cards">
+      <a class="card" href="demo.html">
+        <h2>Ajax 示例</h2>
+        <p>看一个能跑通的 fetch / XHR 请求</p>
+      </a>
+      <a class="card" href="help.html">
+        <h2>使用帮助</h2>
+        <p>参数、CORS、端口占用怎么办</p>
+      </a>
+    </div>
+
+    <h3>开始用你自己的文件</h3>
+    <p>把 HTML、JS、CSS、JSON 丢进 <code>www/</code> 目录，刷新即可访问。当前目录就是服务根目录。</p>
+
+    <pre><code>www/
+├── index.html
+├── demo.html
+├── data.json
+└── your-project/   ← 放你自己的东西</code></pre>
+  </main>
+</body>
+</html>

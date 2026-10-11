@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>使用帮助 - Servit</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>使用帮助</h1>
+
+    <h2>Servit 是什么？</h2>
+    <p>一个双击即用的本地多端口静态服务器。它解决一个问题：<strong>双击 HTML 用 file:// 打开时，Ajax 请求会被浏览器拦截。</strong></p>
+    <p>Servit 在本地起 http:// 服务，让浏览器把页面当成正常网页，Ajax 就能发了。</p>
+
+    <h2>多端口是什么意思？</h2>
+    <p>Servit 扫描总目录下的每个一级子目录，<strong>为每个子目录单独起一个服务、单独占一个端口</strong>。根目录本身也占一个端口，并提供所有子目录的索引。</p>
+    <pre><code>www/
+├── index.html      → 8080（索引页，动态生成）
+├── demo/           → 8081
+├── help/           → 8082
+├── proj-a/         → 8083
+└── proj-b/         → 8084</code></pre>
+
+    <h2>怎么用？</h2>
+    <ol>
+      <li>把 <code>servit.exe</code> 放到任意文件夹</li>
+      <li>双击它</li>
+      <li>它会自动生成 <code>www/</code>、启动所有服务、打开浏览器</li>
+      <li>把你的项目丢进 <code>www/</code> 下新建的文件夹里，刷新索引页即可看到</li>
+    </ol>
+
+    <h2>用 servit.conf 自定义</h2>
+    <p>在子目录下放一个 <code>servit.conf</code> 文件：</p>
+    <pre><code>title=我的项目
+desc=这是一个演示页面
+port=9001</code></pre>
+    <p>索引页就会显示你写的标题和描述；<code>port</code> 指定后该目录固定用这个端口。三个 key 都可选。</p>
+
+    <h2>常用参数</h2>
+    <table>
+      <tr><th>参数</th><th>说明</th></tr>
+      <tr><td><code>-port 9000</code></td><td>根目录端口，默认 8080，未指定端口的子目录从其后依次分配</td></tr>
+      <tr><td><code>-dir ./projects</code></td><td>指定总目录，默认 exe 同目录的 www/</td></tr>
+      <tr><td><code>-no-open</code></td><td>不自动打开浏览器</td></tr>
+      <tr><td><code>-spa</code></td><td>每个单元开启 SPA 路由回退</td></tr>
+      <tr><td><code>-shutdown-timeout 10</code></td><td>优雅退出等待秒数，默认 5</td></tr>
+      <tr><td><code>-h</code></td><td>显示完整帮助</td></tr>
+    </table>
+
+    <h2>端口被占用怎么办？</h2>
+    <p>未指定端口的单元会自动往后找可用端口。但如果 <code>servit.conf</code> 里显式指定了端口，被占用会报错退出——因为那是你明确指定的。</p>
+
+    <h2>怎么退出？</h2>
+    <p>在控制台按 <code>Ctrl+C</code>，Servit 会优雅退出：停止接受新连接，等待进行中的请求完成，然后关闭。默认最多等 5 秒，超时强制关闭。连按两次 <code>Ctrl+C</code> 可立即退出。</p>
+
+    <h2>为什么需要 CORS？</h2>
+    <p>如果你的页面请求的是<strong>另一个</strong>端口或域名的后端，浏览器会拦。Servit 默认给所有响应加上 <code>Access-Control-Allow-Origin: *</code>，省掉这部分调试麻烦。</p>
+
+    <h2>手机能访问吗？</h2>
+    <p>能。启动时控制台会打印每个单元的局域网地址。手机连同一 WiFi，浏览器打开即可。</p>
+  </main>
+</body>
+</html>
